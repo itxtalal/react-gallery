@@ -1,20 +1,41 @@
 import PropTypes from 'prop-types';
 import { useContext } from 'react';
-import { FullScreenContext } from '../context/FullScreenCtx';
+import { ImagesContext } from '../context/ImagesCtx';
+import { AiOutlineCheckCircle, AiFillCheckCircle } from 'react-icons/ai';
 
-const Card = ({ image, id }) => {
-  const { openFullScreen } = useContext(FullScreenContext);
+const Card = ({ image, selectImage, selected }) => {
+  const { openFullScreen } = useContext(ImagesContext);
 
   return (
-    <div onClick={() => openFullScreen(id)} className="cursor-pointer">
-      <img className="h-auto max-w-full rounded-lg" src={image} alt="" />
+    <div
+      onClick={() => openFullScreen(image)}
+      className="cursor-zoom-in relative"
+    >
+      <img className="h-auto max-w-full rounded-lg" src={image.image} alt="" />
+      <button
+        className="absolute top-2 left-2"
+        onClick={(e) => {
+          e.stopPropagation();
+          selectImage(image);
+        }}
+      >
+        {selected ? (
+          <AiFillCheckCircle size={32} />
+        ) : (
+          <AiOutlineCheckCircle size={32} />
+        )}
+      </button>
     </div>
   );
 };
 
 Card.propTypes = {
-  image: PropTypes.string.isRequired,
-  id: PropTypes.number.isRequired,
+  image: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    image: PropTypes.string.isRequired,
+  }).isRequired,
+  selectImage: PropTypes.func.isRequired,
+  selected: PropTypes.bool.isRequired,
 };
 
 export default Card;

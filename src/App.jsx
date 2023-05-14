@@ -1,15 +1,19 @@
 import { useContext } from 'react';
 import CardLayout from './components/CardLayout';
 import FullScreen from './components/FullScreen';
-import { FullScreenContext } from './context/FullScreenCtx';
-import images from './data/images';
+import { ImagesContext } from './context/ImagesCtx';
+import Navbar from './components/Navbar';
+import AddImageModal from './components/AddImageModal';
 
 const App = () => {
-  const { isFullScreen } = useContext(FullScreenContext);
+  const { isFullScreen, addImageScreen } = useContext(ImagesContext);
+  const { images } = useContext(ImagesContext);
 
   return (
     <div className="">
       {isFullScreen && <FullScreen />}
+      {addImageScreen && <AddImageModal />}
+      <Navbar />
       <CardLayout images={images} />
     </div>
   );
