@@ -24,6 +24,7 @@ const AddImageModal = () => {
 };
 
 const PreviewImage = ({ uploadedFile }) => {
+  if (!uploadedFile) return null;
   return (
     <img
       src={URL.createObjectURL(uploadedFile)}
@@ -38,6 +39,7 @@ const FileUpload = ({ setUploadedFile, setNewImage }) => {
     // Handle file upload logic here
     const file = event.target.files[0];
     console.log('file', file);
+    if (!file) return;
     setUploadedFile(file);
     setNewImage(() => ({
       id: Date.now(),
