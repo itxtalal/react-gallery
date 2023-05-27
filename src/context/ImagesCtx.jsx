@@ -42,6 +42,7 @@ const ImagesProvider = ({ children }) => {
   };
 
   const addImage = () => {
+    if (!newImage) return;
     setImages((prev) => {
       return [newImage, ...prev];
     });
